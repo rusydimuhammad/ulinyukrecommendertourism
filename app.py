@@ -3,26 +3,57 @@ import pickle
 import pandas as pd
 
 def recommend(place):
-    index = data_tourism[data_tourism['Place_Name'] == place].index[0]
-    distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
-    recommended_place = []
-    for i in distances[1:6]:
-        recommended_place.append(data_tourism.iloc[i[0]].Place_Name)
-    return recommended_place
+  model_df = similarity
+  model_df = pd.DataFrame(model_df, index=data_tourism_new['Place_Name'], columns=data_tourism_new['Place_Name'])
+  count = 6
+  items=data_tourism_new[['Place_Name','Description','Rating']]
+  index = model_df.loc[:,place].to_numpy().argpartition(range(-1, -count, -1))
+  closest = model_df.columns[index[-1:-(count+2):-1]]
+  closest = closest.drop(place, errors='ignore')
+  new_rec = pd.DataFrame(closest).merge(items).head(count)
+
+  list_of_movie = new_rec['Place_Name'].tolist()
+  list_of_rating = new_rec['Rating'].tolist()
+  list_of_description = new_rec['Description'].tolist()
+
+  return list_of_movie,list_of_rating,list_of_description
 
 place_dict = pickle.load(open('place_dict.pkl','rb'))
 places = pd.DataFrame(place_dict)
 similarity = pickle.load(open('similarity.pkl','rb'))
-data_tourism = pickle.load(open('data_tourism.pkl','rb'))
-data_tourism = pd.DataFrame(data_tourism)
+data_tourism_new = pickle.load(open('data_tourism_new.pkl','rb'))
+data_tourism_new = pd.DataFrame(data_tourism_new)
 
-st.title('Sistem Rekomendasi Destinasi Wisata')
+st.title('Sistem Rekomendasi Destinasi Wisata di Bandung')
 option = st.selectbox(
     "Pilih tempat yang Anda suka!",
     places['Place_Name'].values
 )
 
 if st.button('Rekomendasi'):
-    recommendations = recommend(option)
-    for i in recommendations:
-        st.write(i)
+    list_of_movie,list_of_rating,list_of_description = recommend(option)
+    col1, col2= st.beta_columns(2)
+    with col1:
+        st.text(list_of_movie[0])
+        st.text(list_of_rating[0])
+        st.text(list_of_description[0])
+    with col2:
+        st.text(list_of_movie[1])
+        st.text(list_of_rating[1])
+        st.text(list_of_description[1])
+    with col1:
+        st.text(list_of_movie[2])
+        st.text(list_of_rating[2])
+        st.text(list_of_description[2])
+    with col2:
+        st.text(list_of_movie[3])
+        st.text(list_of_rating[3])
+        st.text(list_of_description[3])
+    with col1:
+        st.text(list_of_movie[4])
+        st.text(list_of_rating[4])
+        st.text(list_of_description[4])
+    with col2:
+        st.text(list_of_movie[5])
+        st.text(list_of_rating[5])
+        st.text(list_of_description[5])
