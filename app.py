@@ -32,28 +32,28 @@ option = st.selectbox(
 
 if st.button('Rekomendasi'):
     list_of_movie,list_of_rating,list_of_description = recommend(option)
-    col1, col2= st.beta_columns(2)
+    col1 = st.columns(1)
     with col1:
-        st.text(list_of_movie[0])
-        st.text(list_of_rating[0])
-        st.text(list_of_description[0])
-    with col2:
-        st.text(list_of_movie[1])
-        st.text(list_of_rating[1])
-        st.text(list_of_description[1])
+        st.header(list_of_movie[0])
+        st.subheader(list_of_rating[0])
+        st.caption(list_of_description[0])
     with col1:
-        st.text(list_of_movie[2])
-        st.text(list_of_rating[2])
-        st.text(list_of_description[2])
-    with col2:
-        st.text(list_of_movie[3])
-        st.text(list_of_rating[3])
-        st.text(list_of_description[3])
+        st.header(list_of_movie[1])
+        st.subheader(list_of_rating[1])
+        st.caption(list_of_description[1])
     with col1:
-        st.text(list_of_movie[4])
-        st.text(list_of_rating[4])
-        st.text(list_of_description[4])
-    with col2:
-        st.text(list_of_movie[5])
-        st.text(list_of_rating[5])
-        st.text(list_of_description[5])
+        st.header(list_of_movie[2])
+        st.subheader(list_of_rating[2])
+        st.caption(list_of_description[2])
+    with col1:
+        st.header(list_of_movie[3])
+        st.subheader(list_of_rating[3])
+        st.caption(list_of_description[3])
+    with col1:
+        st.header(list_of_movie[4])
+        st.subheader(list_of_rating[4])
+        st.caption(list_of_description[4])
+    with col1:
+        st.header(list_of_movie[5])
+        st.subheader(list_of_rating[5])
+        st.caption(list_of_description[5])
