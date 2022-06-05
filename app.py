@@ -32,4 +32,6 @@ option = st.selectbox(
 
 if st.button('Rekomendasi'):
     list_of_movie,list_of_rating,list_of_description = recommend(option)
-    st.write(st.header(list_of_movie[0]))
+    st.header(list_of_movie[0])
+    st.subheader(list_of_rating[0])
+    st.caption(list_of_description[0])
