@@ -5,7 +5,7 @@ import pandas as pd
 def recommend(place):
   model_df = similarity
   model_df = pd.DataFrame(model_df, index=data_tourism_new['Place_Name'], columns=data_tourism_new['Place_Name'])
-  count = 6
+  count = 5
   items=data_tourism_new[['Place_Name','Description','Rating']]
   index = model_df.loc[:,place].to_numpy().argpartition(range(-1, -count, -1))
   closest = model_df.columns[index[-1:-(count+2):-1]]
@@ -35,3 +35,15 @@ if st.button('Rekomendasi'):
     st.header(list_of_movie[0])
     st.subheader(list_of_rating[0])
     st.caption(list_of_description[0])
+    st.header(list_of_movie[1])
+    st.subheader(list_of_rating[1])
+    st.caption(list_of_description[1])
+    st.header(list_of_movie[2])
+    st.subheader(list_of_rating[2])
+    st.caption(list_of_description[2])
+    st.header(list_of_movie[3])
+    st.subheader(list_of_rating[3])
+    st.caption(list_of_description[3])
+    st.header(list_of_movie[4])
+    st.subheader(list_of_rating[4])
+    st.caption(list_of_description[4])
